@@ -16,14 +16,30 @@ import InfoIcon from '@mui/icons-material/Info';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import {IconButton} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu'
-
-
+import LogoutIcon from '@mui/icons-material/Logout'
+// import userAxios from './UserAxios';
+import AxiosInstance from './Axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Navbar(props) {
     const {drawerWidth, content}=props
     const location=useLocation()
     const path = location.pathname
     const [open, setOpen] = React.useState(false);
+    const navigate=useNavigate()
+    const logoutUser=()=>{
+      AxiosInstance.post(`logoutall/`,{
+      })
+      .then(()=>{
+        localStorage.removeItem("Token")
+        navigate('/')
+      })
+      .catch((error) => {
+        console.error("Logout error:", error);
+        alert("Logout failed");
+      });
+  
+    }
 
     const changeOpenStatus = () => {
         setOpen(!open)
@@ -36,7 +52,7 @@ export default function Navbar(props) {
           <List>
            
               <ListItem disablePadding >
-                <ListItemButton component={Link} to="/"  selected={"/"===path} >
+                <ListItemButton component={Link} to="/home"  selected={"/home"===path} >
                   <ListItemIcon>
                     <HomeIcon      />
                   </ListItemIcon>
@@ -59,6 +75,15 @@ export default function Navbar(props) {
                     <EditNoteIcon/>
                   </ListItemIcon>
                   <ListItemText primary={"Apply"} />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem disablePadding >
+                <ListItemButton onClick={logoutUser}  >
+                  <ListItemIcon>
+                    <LogoutIcon/>
+                  </ListItemIcon>
+                  <ListItemText primary={"Logout"} />
                 </ListItemButton>
               </ListItem>
 
@@ -129,7 +154,7 @@ export default function Navbar(props) {
 
 
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 , ml : {sm : drawerWidth  } }}>
         <Toolbar />
 
         {content}

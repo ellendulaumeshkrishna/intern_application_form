@@ -12,4 +12,16 @@ const AxiosInstance = axios.create({
     }
 })
 
+AxiosInstance.interceptors.request.use(
+    (config) => {
+      const token = localStorage.getItem("Token");
+      if (token) {
+        config.headers.Authorization = `Token ${token}`;
+      }
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
+  
+
 export default AxiosInstance
