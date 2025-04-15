@@ -1,165 +1,117 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
 import AppBar from '@mui/material/AppBar';
-import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
-import {Link, useLocation} from 'react-router-dom'
 import InfoIcon from '@mui/icons-material/Info';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import {IconButton} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu'
-import LogoutIcon from '@mui/icons-material/Logout'
-// import userAxios from './UserAxios';
+import LogoutIcon from '@mui/icons-material/Logout';
 import AxiosInstance from './Axios';
-import { useNavigate } from 'react-router-dom';
 
-export default function Navbar(props) {
-    const {drawerWidth, content}=props
-    const location=useLocation()
-    const path = location.pathname
-    const [open, setOpen] = React.useState(false);
-    const navigate=useNavigate()
-    const logoutUser=()=>{
-      AxiosInstance.post(`logoutall/`,{
-      })
-      .then(()=>{
-        localStorage.removeItem("Token")
-        navigate('/')
+export default function Navbar({ content }) {
+  const location = useLocation();
+  const path = location.pathname;
+  const navigate = useNavigate();
+
+  const logoutUser = () => {
+    AxiosInstance.post(`logoutall/`)
+      .then(() => {
+        localStorage.removeItem("Token");
+        navigate('/');
       })
       .catch((error) => {
         console.error("Logout error:", error);
         alert("Logout failed");
       });
-  
-    }
-
-    const changeOpenStatus = () => {
-        setOpen(!open)
-    }
-
-    const myDrawer = (
-        <div>
-            <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
-          <List>
-           
-              <ListItem disablePadding >
-                <ListItemButton component={Link} to="/home"  selected={"/home"===path} >
-                  <ListItemIcon>
-                    <HomeIcon      />
-                  </ListItemIcon>
-                  <ListItemText primary={"Home"} />
-                </ListItemButton>
-              </ListItem>
-
-              <ListItem disablePadding >
-                <ListItemButton component={Link} to="/about"  selected={"/about"===path} >
-                  <ListItemIcon>
-                    <InfoIcon      />
-                  </ListItemIcon>
-                  <ListItemText primary={"About"} />
-                </ListItemButton>
-              </ListItem>
-
-              <ListItem disablePadding >
-                <ListItemButton component={Link} to="/apply"  selected={"/apply"===path} >
-                  <ListItemIcon>
-                    <EditNoteIcon/>
-                  </ListItemIcon>
-                  <ListItemText primary={"Apply"} />
-                </ListItemButton>
-              </ListItem>
-
-              <ListItem disablePadding >
-                <ListItemButton onClick={logoutUser}  >
-                  <ListItemIcon>
-                    <LogoutIcon/>
-                  </ListItemIcon>
-                  <ListItemText primary={"Logout"} />
-                </ListItemButton>
-              </ListItem>
-
-
-
-
-            
-          </List>
-          
-        </Box>
-
-        </div>
-
-    )
-
+  };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <Toolbar>
-            <IconButton
-            color="inherent"
-            onClick={changeOpenStatus}
-            sx={{mr:2,display:{sm:"none"}}}
-            >
-                
-                <MenuIcon/>
+    <>
+      <AppBar
+        position="fixed"
+        sx={{
+          backgroundColor: '#f0dbc2', // Light Beige
+          color: '#8b0000',           // Deep Maroon Text
+          boxShadow: 'none',
+          borderBottom: '3px solid #8b0000',
+          fontFamily: 'Segoe UI, sans-serif',
+          zIndex: (theme) => theme.zIndex.drawer + 1
+        }}
+      >
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <IconButton edge="start" sx={{ display: { sm: 'none' }, color: '#8b0000' }}>
+              <MenuIcon />
             </IconButton>
-            
-          <Typography variant="h6" noWrap component="div">
-            CSE-Office(IIT-BHU)
-          </Typography>
+            <Typography variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
+              CSE-Office (IIT-BHU)
+            </Typography>
+          </Box>
+
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            {[
+              { label: "Home", to: "/home", icon: <HomeIcon /> },
+              { label: "About", to: "/about", icon: <InfoIcon /> },
+              { label: "Apply", to: "/apply", icon: <EditNoteIcon /> }
+            ].map(({ label, to, icon }) => (
+              <Button
+                key={label}
+                component={Link}
+                to={to}
+                startIcon={icon}
+                sx={{
+                  color: '#8b0000',
+                  fontWeight: 600,
+                  textTransform: 'none',
+                  fontFamily: 'Segoe UI, sans-serif',
+                  border: path === to ? '2px solid #8b0000' : 'none',
+                  borderRadius: path === to ? '8px' : '0',
+                  backgroundColor: path === to ? '#fffdf5' : 'transparent',
+                  '&:hover': {
+                    backgroundColor: '#fffdf5'
+                  }
+                }}
+              >
+                {label}
+              </Button>
+            ))}
+            <Button
+              onClick={logoutUser}
+              startIcon={<LogoutIcon />}
+              sx={{
+                color: '#8b0000',
+                fontWeight: 600,
+                textTransform: 'none',
+                fontFamily: 'Segoe UI, sans-serif',
+                '&:hover': {
+                  backgroundColor: '#fffdf5'
+                }
+              }}
+            >
+              Logout
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
 
-
-
-
-      <Drawer
-        variant="permanent"
+      {/* Main content with top padding to avoid navbar overlap */}
+      <Box
+        component="main"
         sx={{
-          display: {xs:"none" , sm:"block"},
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+          mt: 8,
+          p: 3,
+          backgroundColor: '#f7f0d3',
+          minHeight: '100vh',
+          fontFamily: 'Segoe UI, sans-serif'
         }}
       >
-        {myDrawer}
-        
-      </Drawer>
-
-
-      <Drawer
-        variant="temporary"
-        open = {open} 
-        onClose={changeOpenStatus}
-        sx={{
-          display: {xs:"block" , sm:"none"},
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
-      >
-        {myDrawer}
-        
-      </Drawer>
-
-
-
-      <Box component="main" sx={{ flexGrow: 1, p: 3 , ml : {sm : drawerWidth  } }}>
-        <Toolbar />
-
         {content}
-
       </Box>
-    </Box>
+    </>
   );
 }

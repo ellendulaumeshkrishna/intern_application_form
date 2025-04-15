@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 
 router=DefaultRouter()
 router.register('registerform',RegisterformViewSet, basename='registerform')
+router.register('preferenceform', PreferenceFormViewSet, basename='preferenceform')
 
 
 urlpatterns=router.urls

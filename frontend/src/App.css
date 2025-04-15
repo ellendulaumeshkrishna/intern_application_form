@@ -1,6 +1,15 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f7f0d3;
+}
+
+
+
+
 .myBackground{
-  width:100vw;
-  height:100vh;
+  width:100%;
+  min-height:100vh;
   font-family: 'Segoe UI', sans-serif;
   display:flex;
   align-items:center;
@@ -23,6 +32,25 @@
   max-width: 460px;
   width: 90%;
 }
+
+.displayBox{
+  max-width:1400px;
+  width: 100%;
+  padding:2rem;
+  background: #fffdf5;
+  border: 2px solid #8b0000;
+  border-radius: 16px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #8b0000;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
 
 .itemBox{
   display:flex;
@@ -68,3 +96,54 @@
 .MuiButton-contained:hover {
   background-color: #7a1313 !important;
 }
+
+/* after filling */
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #8b0000 !important;
+}
+
+
+.MuiInputLabel-root.Mui-focused {
+  color: #8b0000 !important;
+}
+
+
+
+
+.form-container {
+  background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  backdrop-filter: blur(10px); /* Optional: applies a blur effect behind the form */
+  max-width: 500px;
+  /* width: 100%; */
+  margin: 0 auto;
+}
+
+.input-box {
+  background: transparent; /* Transparent input box background */
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Soft white border */
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+input, select, textarea {
+  background: transparent;
+  color: #fff; /* White text for contrast */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+}
+
+
+button:disabled {
+  background-color: #f0e3a1; /* Muted Yellow-Gold */
+  color: #bfbf7e; /* Muted Text Color */
+  border: 1px solid #ccc; /* Light border to match the disabled theme */
+  cursor: not-allowed;
+}
+

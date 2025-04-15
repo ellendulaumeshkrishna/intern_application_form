@@ -1,7 +1,12 @@
 from django.db import models
 from django.utils.timezone import now
+
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
 # Create your models here.
 class RegisterForm(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE )  
     name=models.CharField(max_length=100)
     email=models.EmailField(unique=True)
     phone_number=models.CharField(max_length=15)
@@ -24,3 +29,13 @@ class RegisterForm(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class PreferenceForm(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    professor = models.CharField(max_length=100)
+    first_choice = models.CharField(max_length=200)
+    second_choice = models.CharField(max_length=200)
+    third_choice = models.CharField(max_length=200)
+    own_project_idea = models.TextField(blank=True, null=True)
+    

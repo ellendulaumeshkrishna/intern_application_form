@@ -7,7 +7,7 @@ import {Controller} from 'react-hook-form'
 export default function MyMultiLineField(props) {
   const{label,width,placeholder,name, control}=props
   return (
-    <Controller>
+    <Controller
       name={name}
       control={control}
       render={({
@@ -29,6 +29,6 @@ export default function MyMultiLineField(props) {
       }
       
      
-    </Controller>
+    />
   );
 }
