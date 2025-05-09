@@ -174,12 +174,9 @@ const MyDisplay = () => {
                 </a>
             ),
         },
-        { accessorKey: 'phone_number', header: 'Phone Number', size: 120 },
-        { accessorKey: 'dob', header: 'Date of Birth', size: 90 },
-        { accessorKey: 'gender', header: 'Gender', size: 40 },
-        { accessorKey: 'college_name', header: 'College', size: 200 },
-        { accessorKey: 'current_degree', header: 'Degree', size: 100 },
-        { accessorKey: 'department', header: 'Department', size: 120 },
+        
+        
+        
         { accessorKey: 'cgpa', header: 'CGPA', size: 50 },
         {
             accessorKey: 'resume',
@@ -218,6 +215,12 @@ const MyDisplay = () => {
         { accessorKey: 'second_choice', header: '2nd Choice', size: 200 },
         { accessorKey: 'third_choice', header: '3rd Choice', size: 200 },
         { accessorKey: 'own_project_idea', header: 'Own Idea', size: 250 },
+        { accessorKey: 'college_name', header: 'College', size: 200 },
+        { accessorKey: 'current_degree', header: 'Degree', size: 100 },
+        { accessorKey: 'department', header: 'Department', size: 120 },
+        { accessorKey: 'phone_number', header: 'Phone Number', size: 120 },
+        { accessorKey: 'dob', header: 'Date of Birth', size: 90 },
+        { accessorKey: 'gender', header: 'Gender', size: 40 },
     ], []);
 
     const table = useMaterialReactTable({

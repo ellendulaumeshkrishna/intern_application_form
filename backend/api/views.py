@@ -5,6 +5,12 @@ from .serializers import *
 from rest_framework.response import Response 
 from .models import *
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
+from users.models import Professor
+from api.models import Project
+from users.serializers import ProfessorSerializer
+
 
 
 def home(request):
@@ -108,3 +114,12 @@ class PreferenceFormViewSet(viewsets.ModelViewSet):
             return Response({"error": "Not found"}, status=404)
 
 
+
+
+class ProfessorProjectListView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        professors = Professor.objects.prefetch_related('projects').all()
+        data = ProfessorSerializer(professors, many=True).data
+        return Response(data)

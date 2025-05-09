@@ -95,3 +95,10 @@ class BasicEmailView(FormView, ListView):
         obj.save()
         return super().form_valid(form)
         
+from rest_framework.generics import ListAPIView
+from .models import Professor
+from .serializers import ProfessorSerializer
+
+class ProfessorListView(ListAPIView):
+    queryset = Professor.objects.prefetch_related('projects').all()
+    serializer_class = ProfessorSerializer

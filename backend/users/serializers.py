@@ -1,6 +1,10 @@
 from rest_framework import serializers
 from .models import *
+from users.models import Professor
+from api.models import Project
 from django.contrib.auth import get_user_model
+
+
 User=get_user_model()
 
 
@@ -15,14 +19,6 @@ class LoginSerializer(serializers.Serializer):
     
     
 
-
-
-
-
-
-
-
-
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model=User
@@ -34,3 +30,16 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
     
+
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ['id', 'title', 'description']
+
+
+class ProfessorSerializer(serializers.ModelSerializer):
+    projects = ProjectSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Professor
+        fields = ['id', 'name', 'profile_url', 'projects']

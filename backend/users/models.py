@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
+from django.conf import settings
 
 
 class CustomUserManager(BaseUserManager):
@@ -75,3 +76,29 @@ def password_reset_token_created(reset_password_token, *args, **kwargs):
 
     msg.attach_alternative(html_message, "text/html")
     msg.send()
+
+
+
+class AreaOfInterest(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+
+class Professor(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        limit_choices_to={'is_staff': True}
+    )
+    name = models.CharField(max_length=100)
+    areas_of_interest = models.ManyToManyField(AreaOfInterest, related_name='professors')
+    profile_url = models.URLField()
+
+    def __str__(self):
+        return self.name
+
+
+

@@ -6,7 +6,7 @@ User = get_user_model()
 
 # Create your models here.
 class RegisterForm(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE )  
+    user = models.OneToOneField(User, on_delete=models.CASCADE )
     name=models.CharField(max_length=100)
     email=models.EmailField(unique=True)
     phone_number=models.CharField(max_length=15)
@@ -38,4 +38,14 @@ class PreferenceForm(models.Model):
     second_choice = models.CharField(max_length=200)
     third_choice = models.CharField(max_length=200)
     own_project_idea = models.TextField(blank=True, null=True)
-    
+
+
+class Project(models.Model):
+    professor = models.ForeignKey('users.Professor', on_delete=models.CASCADE, related_name='projects')
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"{self.title} ({self.professor.name})"
+
+

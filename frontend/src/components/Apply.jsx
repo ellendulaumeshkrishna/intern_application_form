@@ -359,15 +359,24 @@ const Apply = () => {
           sx={{
             
             display: 'flex',
-            width: '100%',
-            backgroundColor: '#8b0000', // Maroon background
+            width: '84%',
+            margin: '0 auto',
+            backgroundColor: '#8b0000', 
             marginBottom: '10px',
             padding: '10px 20px',
             alignItems: 'center',
+            borderRadius: '8px 8px 8px 8px',
+            border: '2px solid #8b0000',
+            borderBottom: 'none'  
           }}
         >
-          <Typography sx={{ color: '#fff', fontSize: '24px' }}>
-            Apply for an Internship
+          <Typography sx={{ 
+             color: '#fff',
+             fontSize: '24px',
+             fontWeight: 'bold',
+             margin: '0 auto'
+             }}>
+            Internship Application-Form
           </Typography>
         </Box>
 
